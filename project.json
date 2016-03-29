@@ -16,6 +16,7 @@
         "src/GameLayer.js",
         "src/BG.js",
         "src/sea.js",
-        "src/bear.js"
+        "src/bear.js",
+        "src/diamond.js"
     ]
 }
