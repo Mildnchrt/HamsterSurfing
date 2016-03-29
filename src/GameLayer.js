@@ -13,9 +13,12 @@ var GameLayer = cc.LayerColor.extend({
 	    this.sea.setPosition( new cc.Point( 490, 300 ) );
 	    this.addChild( this.sea );
         
+//        this.diamond = new diamond();
+//	    this.addChild( this.diamond );
+//        this.diamond.setPosition( new cc.Point( 500, 500 ) );
         this.diamond = new diamond();
-	    this.addChild( this.diamond );
-        this.diamond.setPosition( new cc.Point( 500, 500 ) );
+        this.addChild( this.diamond );
+        this.diamond.scheduleUpdate();
         
 	    cc.audioEngine.playMusic( 'res/effects/musicBG.mp3', true );
         
@@ -65,6 +68,7 @@ var GameLayer = cc.LayerColor.extend({
     
     update: function() {
         this.bear.speed = 4;
+        this.diamond.speed = 3;
 //	   if ( this.gold.closeTo( this.ship ) ) {
 //	       this.gold.randomPosition();
 //           this.bear.speed = 0.9;

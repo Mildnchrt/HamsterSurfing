@@ -5,7 +5,6 @@ ctor: function() {
 	   hamster.addSpriteFrameWithFile( 'res/images/player1.png' );
        hamster.addSpriteFrameWithFile( 'res/images/player2.png' );
        hamster.addSpriteFrameWithFile( 'res/images/player3.png' );
-//       hamster.addSpriteFrameWithFile( 'res/images/player4.png' );
 	   hamster.setDelayPerUnit( 0.2 );
 	   var movingAction = cc.RepeatForever.create( cc.Animate.create( hamster ) );
 	   this.runAction( movingAction );
