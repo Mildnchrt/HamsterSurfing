@@ -1,24 +1,45 @@
 var GameLayer = cc.LayerColor.extend({
     init: function() {
+        this.gameStatus = GameLayer.STATUS.FRONT;
         this.BG = new BG();
 	    this.BG.setPosition( new cc.Point(490, 300 ) );
 	    this.addChild( this.BG );
         
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
+	    this.scoreLabel.setPosition( new cc.Point( 130, 590) );
+	    this.addChild( this.scoreLabel );
+        
+
+        this.diamond1 = new diamond();
+        this.diamond1.setPosition( new cc.Point( 850, 400 ) );
+        this.addChild( this.diamond1 );
+        this.diamond1.scheduleUpdate();
+        
+        this.diamond2 = new diamond();
+        this.diamond2.setPosition( new cc.Point( 1220, 250 ) );
+        this.addChild( this.diamond2 );
+        this.diamond2.scheduleUpdate();
+        
+        this.diamond3 = new diamond();
+        this.diamond3.setPosition( new cc.Point( 1870, 500 ) );
+        this.addChild( this.diamond3 );
+        this.diamond3.scheduleUpdate();
+        
+        this.diamond4 = new diamond();
+        this.diamond4.setPosition( new cc.Point( 2300, 580 ) );
+        this.addChild( this.diamond4 );
+        this.diamond4.scheduleUpdate();
+        
         this.bear = new bear();
-	    this.bear.setPosition( new cc.Point( 490, 300 ) );
+	    this.bear.setPosition( new cc.Point( 490, 298 ) );
 	    this.addChild( this.bear );
 	    this.bear.scheduleUpdate();
+        
         
         this.sea = new sea();
 	    this.sea.setPosition( new cc.Point( 490, 300 ) );
 	    this.addChild( this.sea );
         
-//        this.diamond = new diamond();
-//	    this.addChild( this.diamond );
-//        this.diamond.setPosition( new cc.Point( 500, 500 ) );
-        this.diamond = new diamond();
-        this.addChild( this.diamond );
-        this.diamond.scheduleUpdate();
         
 	    cc.audioEngine.playMusic( 'res/effects/musicBG.mp3', true );
         
@@ -31,23 +52,25 @@ var GameLayer = cc.LayerColor.extend({
 
     },
     onKeyDown: function( keyCode, event ) {
-        
-	   if ( keyCode == cc.KEY.up ) {
-	       this.bear.switchDirection(2);
-           this.bear.update();
-	   }
-       else if (keyCode == cc.KEY.down){
-            this.bear.switchDirection(4);
-            this.bear.update();
-       }
-       else if (keyCode == cc.KEY.left){
-            this.bear.switchDirection(1);
-            this.bear.update();
-       }
-       else if (keyCode == cc.KEY.right){
-            this.bear.switchDirection(3);
-            this.bear.update();
-       }
+        this.gameStatus = GameLayer.STATUS.STARTED;
+	    if( this.gameStatus = GameLayer.STATUS.STARTED){ 
+            if ( keyCode == cc.KEY.up ) {
+	           this.bear.switchDirection(2);
+               this.bear.update();
+	        }
+            else if (keyCode == cc.KEY.down){
+                this.bear.switchDirection(4);
+                this.bear.update();
+            }
+            else if (keyCode == cc.KEY.left){
+                this.bear.switchDirection(1);
+                this.bear.update();
+            }
+            else if (keyCode == cc.KEY.right){
+                this.bear.switchDirection(3);
+                this.bear.update();
+            }
+        }
     },
     onKeyUp: function( keyCode, event ) {
        this.bear.speed = 0;
@@ -67,13 +90,24 @@ var GameLayer = cc.LayerColor.extend({
     },
     
     update: function() {
-        this.bear.speed = 4;
-        this.diamond.speed = 3;
-//	   if ( this.gold.closeTo( this.ship ) ) {
-//	       this.gold.randomPosition();
-//           this.bear.speed = 0.9;
-//           this.scoreLabel.setString(parseInt(this.scoreLabel.string)+1) ;
-//	   }
+        this.bear.speed = 5;
+        if ( this.diamond1.closeTo(this.bear)) {
+            this.diamond1.randomPosition();
+            this.scoreLabel.setString(parseInt(this.scoreLabel.string)+1) ;
+        }
+        if ( this.diamond2.closeTo(this.bear)) {
+            this.diamond2.randomPosition();
+            this.scoreLabel.setString(parseInt(this.scoreLabel.string)+1) ;
+        }
+        if ( this.diamond3.closeTo(this.bear)) {
+            this.diamond3.randomPosition();
+            this.scoreLabel.setString(parseInt(this.scoreLabel.string)+1) ;
+        }
+        if ( this.diamond4.closeTo(this.bear)) {
+            this.diamond4.randomPosition();
+            this.scoreLabel.setString(parseInt(this.scoreLabel.string)+1) ;
+        }
+
     }
     
 });
@@ -87,3 +121,8 @@ var StartScene = cc.Scene.extend({
         
     }
 });
+GameLayer.STATUS = {
+     FRONT: 1,
+     STARTED: 2
+}
+

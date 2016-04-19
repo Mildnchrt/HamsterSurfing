@@ -1,6 +1,7 @@
 var res = {
     HelloWorld_png : "res/HelloWorld.png",
     effects_fall: 'res/effects/musicBG.mp3'
+    
 };
 
 var g_resources = [];
