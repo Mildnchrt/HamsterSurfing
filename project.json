@@ -17,6 +17,12 @@
         "src/BG.js",
         "src/sea.js",
         "src/bear.js",
-        "src/diamond.js"
+        "src/diamond.js",
+        "src/Bomb.js",
+        "src/Heart.js",
+        "src/Wave.js",
+        "src/Seed.js",
+        "src/Over.js",
+        "src/GameOver.js"
     ]
 }

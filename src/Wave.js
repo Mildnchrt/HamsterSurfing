@@ -1,56 +1,47 @@
-var bear = cc.Sprite.extend({
+var wave = cc.Sprite.extend({
 ctor: function() {
     this._super();
-    this.initWithFile( 'res/images/p1.png');
-        
-//       this._super();
-//       var bear = new cc.Animation.create();
-//	   bear.initWithFile( 'res/images/p1.png' );
-//       bear.addSpriteFrameWithFile( 'res/images/player2.png' );
-//       bear.addSpriteFrameWithFile( 'res/images/player3.png' );
-//	   bear.setDelayPerUnit( 0.2 );
-//	   var movingAction = cc.RepeatForever.create( cc.Animate.create( bear ) );
-//	   this.runAction( movingAction );
+    this.initWithFile( 'res/images/wave.png');
     },
     
     update: function(  ) {
     var pos = this.getPosition();   
        switch (this.direction) {
-            case bear.DIR.UP :
+            case wave.DIR.UP :
                this.checkDirectionUp(pos);
                break;
-            case bear.DIR.DOWN :
+            case wave.DIR.DOWN :
                this.checkDirectionDown(pos);
                break;
-            case bear.DIR.RIGHT :
+            case wave.DIR.RIGHT :
                this.checkDirectionRight(pos);
                break;  
-            case bear.DIR.LEFT :
+            case wave.DIR.LEFT :
                this.checkDirectionLeft(pos);
                break;
        }
     },
     
     checkDirectionUp: function(pos) {
-        if ( pos.y < 490 ) {
+        if ( pos.y < 340 ) {
             this.setPosition( new cc.Point( pos.x, pos.y + this.speed ) );
         } 
     },
     
     checkDirectionDown: function(pos) {
-        if ( pos.y > 220 ) {
+        if ( pos.y > 80 ) {
             this.setPosition( new cc.Point( pos.x, pos.y - this.speed ) );
         } 
     },
     
     checkDirectionRight: function(pos) {
-        if ( pos.x < 800 ) {
+        if ( pos.x < 720 ) {
             this.setPosition( new cc.Point( pos.x + this.speed, pos.y) );
         } 
     },
     
     checkDirectionLeft: function(pos) {
-        if ( pos.x > 110 ) {
+        if ( pos.x > 45 ) {
             this.setPosition( new cc.Point( pos.x - this.speed, pos.y ) );
         }
     },
@@ -58,22 +49,22 @@ ctor: function() {
     switchDirection: function(num) {
        switch (num) {
            case 1 :
-               this.direction = bear.DIR.LEFT;
+               this.direction = wave.DIR.LEFT;
                break;
            case 2 :
-               this.direction = bear.DIR.UP;
+               this.direction = wave.DIR.UP;
                break;
            case 3 :
-               this.direction = bear.DIR.RIGHT;
+               this.direction = wave.DIR.RIGHT;
                break;
            case 4 :
-               this.direction = bear.DIR.DOWN;
+               this.direction = wave.DIR.DOWN;
                break;
        }
     }
 });
 
-bear.DIR = {
+wave.DIR = {
     UP: 2,
     RIGHT: 3,
     DOWN: 4,
