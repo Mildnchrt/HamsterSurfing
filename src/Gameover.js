@@ -5,13 +5,29 @@ var Gameover = cc.LayerColor.extend({
         this.frame.setPosition( new cc.Point(490, 292 ) );
         this.addChild( this.frame );
         
-        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
-        this.scoreLabel.set
-        this.scoreLabel.setString( GameLayer.getScore ) ;
-        this.scoreLabel.setPosition( new cc.Point( 120, 612) );
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 48 );
+        this.scoreLabel.color = "black";
+        this.scoreLabel.setString( score );
+        this.scoreLabel.setPosition( new cc.Point( 550, 70) );
 	    this.addChild( this.scoreLabel );
         
-        cc.audioEngine.playMusic( 'res/effects/bad_day.mp3', true );
+        this.button = new cc.MenuItemImage(
+            'res/images/Replay.png',
+            'res/images/Replay.png',
+            function() {
+                this.reset();
+                cc.director.runScene( new StartScene() );
+        }, this);
+        this.buttonPic = new cc.Menu ( this.button );
+        this.buttonPic.setPosition( new cc.Point ( 780, 70) );
+        this.addChild(this.buttonPic);
+        
+        cc.audioEngine.playMusic( 'res/effects/laugh.mp3', true );
+    },
+    reset: function() {
+        count = 2;
+        score = 0;
+        keepBlood = 0;
     },
     EndScene: function() {
         this.endScene = new EndScene();

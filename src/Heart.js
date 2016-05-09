@@ -5,9 +5,5 @@ var heart =cc.Sprite.extend({
         this.speed = 6;
 
     },
-    update: function( dt ) {
-        
-    },
-    
 }); 
     

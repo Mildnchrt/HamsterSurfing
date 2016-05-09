@@ -1,8 +1,8 @@
-var bomb =cc.Sprite.extend({
+var blood =cc.Sprite.extend({
     ctor: function() {
         this._super();
-        this.initWithFile( 'res/images/bomb.png');
-        this.speed = 10;
+        this.initWithFile( 'res/images/blood.png');
+        this.speed = 6;
 
     },
     update: function( dt ) {
@@ -14,7 +14,7 @@ var bomb =cc.Sprite.extend({
     randomPosition: function() {
         this.speed += 1;
        
-        var x = (1700);
+        var x = (5200);
         var y = (Math.random()*320) + 190;
         
         this.setPosition(new cc.Point(x,y));

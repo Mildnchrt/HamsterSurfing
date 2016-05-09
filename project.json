@@ -4,7 +4,7 @@
     "debugMode" : 1,
     "showFPS" : false,
     "frameRate" : 60,
-    "noCache" : true,
+    "noCache" : false,
     "id" : "gameCanvas",
     "renderMode" : 0,
     "engineDir":"frameworks/cocos2d-html5",
@@ -23,6 +23,8 @@
         "src/Wave.js",
         "src/Seed.js",
         "src/Over.js",
-        "src/GameOver.js"
+        "src/GameOver.js",
+        "src/StartGame.js",
+        "src/Blood.js"
     ]
 }

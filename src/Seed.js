@@ -14,15 +14,9 @@ var seed = cc.Sprite.extend({
     randomPosition: function() {
         this.speed += 1;
        
-        var x = (3250);
+        var x = (6200);
         var y = (Math.random()*320) + 190;
-        
         this.setPosition(new cc.Point(x,y));
-    },
-    closeTo: function( obj ) {
-	   var myPos = this.getPosition();
-	   var oPos = obj.getPosition();
-  	   return ( ( Math.abs( myPos.x - oPos.x ) <= 60 ) && ( Math.abs( myPos.y - oPos.y ) <= 60 ) );
-    },
+    }
 }); 
     

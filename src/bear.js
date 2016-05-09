@@ -2,20 +2,11 @@ var bear = cc.Sprite.extend({
 ctor: function() {
     this._super();
     this.initWithFile( 'res/images/p1.png');
-        
-//       this._super();
-//       var bear = new cc.Animation.create();
-//	   bear.initWithFile( 'res/images/p1.png' );
-//       bear.addSpriteFrameWithFile( 'res/images/player2.png' );
-//       bear.addSpriteFrameWithFile( 'res/images/player3.png' );
-//	   bear.setDelayPerUnit( 0.2 );
-//	   var movingAction = cc.RepeatForever.create( cc.Animate.create( bear ) );
-//	   this.runAction( movingAction );
     },
     
     update: function(  ) {
-    var pos = this.getPosition();   
-       switch (this.direction) {
+        var pos = this.getPosition();   
+        switch (this.direction) {
             case bear.DIR.UP :
                this.checkDirectionUp(pos);
                break;
@@ -53,6 +44,11 @@ ctor: function() {
         if ( pos.x > 110 ) {
             this.setPosition( new cc.Point( pos.x - this.speed, pos.y ) );
         }
+    },
+     closeTo: function( obj ) {
+	   var myPos = this.getPosition();
+	   var oPos = obj.getPosition();
+  	   return ( ( Math.abs( myPos.x - oPos.x ) <= 65 ) && ( Math.abs( myPos.y - oPos.y ) <= 65 ) );
     },
     
     switchDirection: function(num) {

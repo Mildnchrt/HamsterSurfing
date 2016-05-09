@@ -1,4 +1,6 @@
 var count = 2;
+var score = 0;
+var timerBloodEffect = 0;
 var GameLayer = cc.LayerColor.extend({
     init: function() {
         
@@ -24,6 +26,11 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.seed );
         this.seed.scheduleUpdate();
         
+        this.blood = new blood();
+        this.blood.setPosition( new cc.Point(3900, 399) );
+        this.addChild( this.blood );
+        this.blood.scheduleUpdate();
+        
         this.wave = new wave();
 	    this.wave.setPosition( new cc.Point( 420, 80 ) );
 	    this.addChild( this.wave );
@@ -40,7 +47,7 @@ var GameLayer = cc.LayerColor.extend({
         
         this.initailHeart();
         
-	    cc.audioEngine.playMusic( 'res/effects/musicBG.mp3', true );
+	    cc.audioEngine.playMusic( 'res/effects/startmusic2.mp3', true );
         
         this.scheduleUpdate();
         
@@ -54,7 +61,7 @@ var GameLayer = cc.LayerColor.extend({
         for( var i = 0; i < 7; i++) {
             this.diamondArr[i] = new diamond();
             this.diamondArr[i].speed = 4.2;
-            this.diamondArr[i].setPosition(new cc.Point( 1000 + (i * 325) , (Math.random() * 345) + 210 ));
+            this.diamondArr[i].setPosition(new cc.Point( 1000 + (i * 500) , (Math.random() * 345) + 210 ));
             this.addChild(this.diamondArr[i]);
             this.diamondArr[i].scheduleUpdate();
         }
@@ -115,53 +122,85 @@ var GameLayer = cc.LayerColor.extend({
     
     update: function() {
         if ( count < 0 ) {
-            this.bear.speed = 0;
-            this.wave.speed = 0;
             for (var i = 0; i < 3; i++) {
                 this.diamondArr[i].speed = 0;
             }
-            this.bomb1.speed = 0;
-            this.seed.speed = 0;
             this.gameOver();
         }
         else {
-            this.bear.speed = 10;
-            this.wave.speed = 10;
+            this.bear.speed = 9;
+            this.wave.speed = 9;
             this.checkCloseTo();
+        }
+        
+        if ( timerBloodEffect > 0) {
+            this.bear.speed = 27;
+            this.wave.speed = 27;
         }
     },
     
     checkCloseTo: function() {
+        this.hitDiamond();
+        
+        this.hitBomb();
+        
+        this.hitBlood();
+        
+        this.hitSeed();
+    },
+    
+    hitDiamond: function() {
         for (var i = 0; i < 7; i++) {
-            if ( this.diamondArr[i].closeTo( this.bear ) ) {
+            if ( this.bear.closeTo( this.diamondArr[i] ) ) {
+                timerBloodEffect--;
+                score++;
                 this.diamondArr[i].randomPosition();
-                this.scoreLabel.setString( parseInt(this.scoreLabel.string)+1 ) ;
+                this.scoreLabel.setString( score ) ;
             }
             else if ( this.diamondArr[i].getPositionX() < 0 ) {
                 this.diamondArr[i].randomPosition();
             }
         }
-        
-        if ( this.bomb1.closeTo( this.bear ) || this.bomb1.getPositionX() < 0 ) {
+    },
+    
+    hitBomb: function() {
+        if ( this.bear.closeTo( this.bomb1 ) || this.bomb1.getPositionX() < 0 ) {
             this.bomb1.randomPosition(); 
             if ( count >= 0 ) {
-                this.heartArr[count].setPosition( new cc.Point(2000, 2000) );
-                count--;
+                this.DecreaseHeart();
             }
         }
-        
-        if ( this.seed.closeTo( this.bear ) || this.seed.getPositionX < 0 ) {
+    },
+    
+    hitSeed: function() {
+        if ( this.bear.closeTo( this.seed ) || this.seed.getPositionX < 0 ) {
+            if ( count < 2 ) {
+                this.IncreaseHeart();
+            }
             this.seed.randomPosition();
         }
-    },  
+    },
+    
+    hitBlood: function() {
+        if ( this.bear.closeTo( this.blood ) || this.seed.getPositionX < 0 ) {
+            this.blood.randomPosition();
+            timerBloodEffect = 3;
+        }
+    },
+    
+    IncreaseHeart: function() {
+        count++;
+        this.heartArr[count].setOpacity(255);
+    },
+    
+    DecreaseHeart: function() {
+        this.heartArr[count].setOpacity(0);
+        count--;
+    },
+
     gameOver: function() {
         cc.director.runScene( new EndGame() );
     },
-    getScore: function() {
-        var score = parseInt(this.score.string);
-        
-        return this.score;
-    }
 
 });
 
@@ -171,7 +210,6 @@ var StartScene = cc.Scene.extend({
         var layer = new GameLayer();
         layer.init();
         this.addChild( layer );
-        
     }
 });
 

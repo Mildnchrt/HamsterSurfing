@@ -2,7 +2,7 @@ var diamond = cc.Sprite.extend({
     ctor: function() {
         this._super();
         this.initWithFile( 'res/images/diamond.png');
-        this.speed = 5;
+        this.speed = 6;
 
     },
     
@@ -14,18 +14,12 @@ var diamond = cc.Sprite.extend({
     },
     
     randomPosition: function() {
-        this.speed += 1.2;
+        this.speed += 0.8;
        
-        var x = ( 1800 + ( this.speed * 200 ) );
+        var x = ( 1800 + ( this.speed * 250 ) );
         var y = ( Math.random() * 345.123 ) + 210;
         
         this.setPosition(new cc.Point(x,y));
-    },
-    
-    closeTo: function( obj ) {
-	   var myPos = this.getPosition();
-	   var oPos = obj.getPosition();
-  	   return ( ( Math.abs( myPos.x - oPos.x ) <= 64 ) && ( Math.abs( myPos.y - oPos.y ) <= 100 ) );
     }
 
 }); 
