@@ -25,6 +25,7 @@
         "src/Over.js",
         "src/GameOver.js",
         "src/StartGame.js",
-        "src/Blood.js"
+        "src/Blood.js",
+        "src/startBG.js"
     ]
 }

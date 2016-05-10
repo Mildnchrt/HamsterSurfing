@@ -3,47 +3,26 @@ var score = 0;
 var timerBloodEffect = 0;
 var GameLayer = cc.LayerColor.extend({
     init: function() {
-        
         this.gameStatus = GameLayer.STATUS.FRONT;
-        this.BG = new BG();
-	    this.BG.setPosition( new cc.Point(490, 292 ) );
-	    this.addChild( this.BG );
         
-        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
-	    this.scoreLabel.setPosition( new cc.Point( 120, 612) );
-	    this.addChild( this.scoreLabel );
+        this.createBG();
+        
+        this.createScoreLabel();
         
         this.diamondArr = [];
         this.initailDiamond();
        
-        this.bomb1 = new bomb();
-        this.bomb1.setPosition( new cc.Point( 2020, 520 ) );
-        this.addChild( this.bomb1 );
-        this.bomb1.scheduleUpdate();
+        this.createBomb();
         
-        this.seed = new seed();
-        this.seed.setPosition( new cc.Point( 2400, 460 ) );
-        this.addChild( this.seed );
-        this.seed.scheduleUpdate();
+        this.createSeed();
         
-        this.blood = new blood();
-        this.blood.setPosition( new cc.Point(3900, 399) );
-        this.addChild( this.blood );
-        this.blood.scheduleUpdate();
+        this.createBlood();
         
-        this.wave = new wave();
-	    this.wave.setPosition( new cc.Point( 420, 80 ) );
-	    this.addChild( this.wave );
-	    this.wave.scheduleUpdate();
+        this.createWave();
         
-        this.bear = new bear();
-	    this.bear.setPosition( new cc.Point( 490, 220 ) );
-	    this.addChild( this.bear );
-	    this.bear.scheduleUpdate();
+        this.createPlayer();
         
-        this.sea = new sea();
-	    this.sea.setPosition( new cc.Point( 490, 250 ) );
-	    this.addChild( this.sea );
+        this.createSea();
         
         this.initailHeart();
         
@@ -53,24 +32,75 @@ var GameLayer = cc.LayerColor.extend({
         
         this.addKeyboardHandlers();
         
-        
         return true;
-
     },
+    createBG: function() {
+        this.BG = new BG();
+	    this.BG.setPosition( new cc.Point(490, 292 ) );
+	    this.addChild( this.BG );
+    },
+    
+    createScoreLabel: function() {
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
+	    this.scoreLabel.setPosition( new cc.Point( 120, 612) );
+	    this.addChild( this.scoreLabel );
+    },
+    
     initailDiamond: function() {
-        for( var i = 0; i < 7; i++) {
+        for( var i = 0; i < 7; i++ ) {
             this.diamondArr[i] = new diamond();
             this.diamondArr[i].speed = 4.2;
-            this.diamondArr[i].setPosition(new cc.Point( 1000 + (i * 500) , (Math.random() * 345) + 210 ));
+            this.diamondArr[i].setPosition( new cc.Point( 1000 + (i * 500) , (Math.random() * 345) + 210 ) );
             this.addChild(this.diamondArr[i]);
             this.diamondArr[i].scheduleUpdate();
         }
     },
+    
+    createBomb: function() {
+        this.bomb1 = new bomb();
+        this.bomb1.setPosition( new cc.Point( 2020, 520 ) );
+        this.addChild( this.bomb1 );
+        this.bomb1.scheduleUpdate();
+    },
+    createSeed: function() {
+        this.seed = new seed();
+        this.seed.setPosition( new cc.Point( 2400, 460 ) );
+        this.addChild( this.seed );
+        this.seed.scheduleUpdate();
+    },
+    
+    createBlood: function() {
+        this.blood = new blood();
+        this.blood.setPosition( new cc.Point(3900, 399) );
+        this.addChild( this.blood );
+        this.blood.scheduleUpdate();
+    },
+    
+    createPlayer: function() {
+        this.bear = new bear();
+	    this.bear.setPosition( new cc.Point( 490, 220 ) );
+	    this.addChild( this.bear );
+	    this.bear.scheduleUpdate();
+    },
+    
+    createWave: function() {
+        this.wave = new wave();
+	    this.wave.setPosition( new cc.Point( 420, 80 ) );
+	    this.addChild( this.wave );
+	    this.wave.scheduleUpdate();
+    },
+    
+    createSea: function() {
+        this.sea = new sea();
+	    this.sea.setPosition( new cc.Point( 490, 250 ) );
+	    this.addChild( this.sea );
+    },
+    
     initailHeart: function() {
         this.heartArr = [];
-        for ( var i = 0 ; i < 3; i++) {
+        for ( var i = 0 ; i < 3; i++ ) {
             this.heartArr[i] = new heart();
-            this.heartArr[i].setPosition(new cc.Point((838.2 + (40.09 * i)), 612));
+            this.heartArr[i].setPosition( new cc.Point( (838.2 + (40.09 * i)), 612 ) );
             this.addChild(this.heartArr[i]);
         }
     },
@@ -80,30 +110,24 @@ var GameLayer = cc.LayerColor.extend({
 	    if( this.gameStatus = GameLayer.STATUS.STARTED){ 
             if ( keyCode == cc.KEY.up ) {
 	           this.bear.switchDirection(2);
-               this.bear.update();
                this.wave.switchDirection(2);
 	        }
             else if (keyCode == cc.KEY.down){
                 this.bear.switchDirection(4);
-                this.bear.update();
                 this.wave.switchDirection(4);
             }
             else if (keyCode == cc.KEY.left){
                 this.bear.switchDirection(1);
-                this.bear.update();
                 this.wave.switchDirection(1);
             }
             else if (keyCode == cc.KEY.right){
                 this.bear.switchDirection(3);
-                this.bear.update();
                 this.wave.switchDirection(3);
             }
         }
     },
     
     onKeyUp: function( keyCode, event ) {
-       this.bear.speed = 0;
-       this.wave.speed = 0;
 	   console.log( 'Up: ' + keyCode.toString() );
     },
     
@@ -122,14 +146,13 @@ var GameLayer = cc.LayerColor.extend({
     
     update: function() {
         if ( count < 0 ) {
-            for (var i = 0; i < 3; i++) {
-                this.diamondArr[i].speed = 0;
-            }
+//            for ( var i = 0; i < 3; i++ ) {
+//                this.diamondArr[i].speed = 0;
+//            }
             this.gameOver();
-        }
-        else {
-            this.bear.speed = 9;
-            this.wave.speed = 9;
+        }else {
+            this.bear.speed = 14;
+            this.wave.speed = 14;
             this.checkCloseTo();
         }
         
@@ -141,11 +164,8 @@ var GameLayer = cc.LayerColor.extend({
     
     checkCloseTo: function() {
         this.hitDiamond();
-        
         this.hitBomb();
-        
         this.hitBlood();
-        
         this.hitSeed();
     },
     

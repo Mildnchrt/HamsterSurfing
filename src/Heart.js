@@ -3,7 +3,6 @@ var heart =cc.Sprite.extend({
         this._super();
         this.initWithFile( 'res/images/heart.png');
         this.speed = 6;
-
     },
 }); 
     

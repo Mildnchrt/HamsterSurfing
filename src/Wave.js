@@ -5,8 +5,8 @@ ctor: function() {
     },
     
     update: function(  ) {
-    var pos = this.getPosition();   
-       switch (this.direction) {
+        var pos = this.getPosition();   
+        switch (this.direction) {
             case wave.DIR.UP :
                this.checkDirectionUp(pos);
                break;
@@ -21,9 +21,9 @@ ctor: function() {
                break;
        }
     },
-    
+
     checkDirectionUp: function(pos) {
-        if ( pos.y < 340 ) {
+        if ( pos.y < 348 ) {
             this.setPosition( new cc.Point( pos.x, pos.y + this.speed ) );
         } 
     },
@@ -35,13 +35,13 @@ ctor: function() {
     },
     
     checkDirectionRight: function(pos) {
-        if ( pos.x < 720 ) {
+        if ( pos.x < 730 ) {
             this.setPosition( new cc.Point( pos.x + this.speed, pos.y) );
         } 
     },
     
     checkDirectionLeft: function(pos) {
-        if ( pos.x > 45 ) {
+        if ( pos.x > 38 ) {
             this.setPosition( new cc.Point( pos.x - this.speed, pos.y ) );
         }
     },

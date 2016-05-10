@@ -1,8 +1,5 @@
 var res = {
-    HelloWorld_png : "res/HelloWorld.png",
-    effects_fall: 'res/effects/musicBG.mp3',
-    
-    effects_fall: 'res/effects/bad_day.mp3',
+    HelloWorld_png : "res/HelloWorld.png"
 };
 
 var g_resources = [];

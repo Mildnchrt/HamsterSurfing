@@ -1,7 +1,7 @@
 var bear = cc.Sprite.extend({
-ctor: function() {
-    this._super();
-    this.initWithFile( 'res/images/p1.png');
+    ctor: function() {
+        this._super();
+        this.initWithFile( 'res/images/p1.png');
     },
     
     update: function(  ) {
@@ -45,10 +45,11 @@ ctor: function() {
             this.setPosition( new cc.Point( pos.x - this.speed, pos.y ) );
         }
     },
-     closeTo: function( obj ) {
+    
+    closeTo: function( obj ) {
 	   var myPos = this.getPosition();
 	   var oPos = obj.getPosition();
-  	   return ( ( Math.abs( myPos.x - oPos.x ) <= 65 ) && ( Math.abs( myPos.y - oPos.y ) <= 65 ) );
+  	   return ( ( Math.abs( myPos.x - oPos.x ) <= 45 ) && ( Math.abs( myPos.y - oPos.y ) <= 50 ) );
     },
     
     switchDirection: function(num) {
